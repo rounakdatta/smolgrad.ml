@@ -1,0 +1,4 @@
+(executable
+ (public_name greeter)
+ (name main)
+ (libraries hello))
