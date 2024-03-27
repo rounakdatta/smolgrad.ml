@@ -11,6 +11,7 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         isDarwin = pkgs.stdenv.isDarwin;
+        # thanks to https://github.com/commercialhaskell/stack/issues/1698#issuecomment-178098712 for the idea
         darwinFrameworks = pkgs.lib.optionals isDarwin (with pkgs.darwin.apple_sdk.frameworks; [
           Cocoa
           CoreServices
