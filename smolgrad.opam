@@ -1,0 +1,8 @@
+opam-version: "2.0"
+maintainer: "rounakdatta12@gmail.com"
+synopsis: "Algorithmic differentiation in OCaml"
+depends: [
+  "dune"
+  "ppx_jane"
+  "ounit"
+]

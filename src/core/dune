@@ -1,0 +1,4 @@
+(library
+  (name core)
+  (modules Core)
+  (libraries utils))

@@ -23,24 +23,24 @@
         devShell = pkgs.mkShell {
           buildInputs = ocamlEnv ++ [ pkgs.opam ];
           shellHook = ''
-            	    export IN_NIX_DEVELOP_SHELL=1
+                        export IN_NIX_DEVELOP_SHELL=1
 
                         export OPAMROOT=$NIX_BUILD_TOP/.opam
-            	    # unsetting the below env var is required for fixing a thorny issue with `num` install
-            	    # similar issue & solution thread: https://github.com/ocaml/Zarith/issues/136 
-            	    unset OCAMLFIND_DESTDIR
+                        # unsetting the below env var is required for fixing a thorny issue with `num` install
+                        # similar issue & solution thread: https://github.com/ocaml/Zarith/issues/136 
+                        unset OCAMLFIND_DESTDIR
 
-            	    opam init --bare --disable-sandboxing -y --shell-setup -vv
-            	    opam option -global depext=false
-            	    OCAML_VERSION=$(ocaml --version | awk '{printf $5}')
-            	    opam switch create $OCAML_VERSION
-            	    eval $(opam env --switch=$OCAML_VERSION)
-            	    opam install . --deps-only -y -v
+                        opam init --bare --disable-sandboxing -y --shell-setup -vv
+                        opam option -global depext=false
+                        OCAML_VERSION=$(ocaml --version | awk '{printf $5}')
+                        opam switch create $OCAML_VERSION
+                        eval $(opam env --switch=$OCAML_VERSION)
+                        opam install . --deps-only -y -v
 
-            	    # figure out what the default shell of this computer is and set it
+                        # figure out what the default shell of this computer is and set it
                         SHELLY=$(getent passwd $USER | awk -F: '{printf $7}')
-            	    exec $SHELLY
-                    	  '';
+                        exec $SHELLY
+            	  '';
         };
       }
     );
