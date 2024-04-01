@@ -48,12 +48,12 @@
           (if isDarwin then
             ''
                     SHELLY=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
-              			exec $SHELLY
+              	    exec $SHELLY
             ''
           else
             ''
-              SHELLY=$(getent passwd $USER | awk -F: '{printf $7}')
-              exec $SHELLY
+                    SHELLY=$(getent passwd $USER | awk -F: '{printf $7}')
+                    exec $SHELLY
             '');
         };
       }
