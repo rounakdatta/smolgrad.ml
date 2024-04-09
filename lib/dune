@@ -1,0 +1,3 @@
+(library
+  (name nn)
+  (modules Neuron Network))

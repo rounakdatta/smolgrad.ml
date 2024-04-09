@@ -1,2 +1,2 @@
 (lang dune 2.0)
-(name smolgrad.ml)
+(name smolgrad-ml)

@@ -1,2 +1,3 @@
-smolgrad/_build/*
-smolgrad/_opam/*
+_build/*
+_opam/*
+.vscode/*
