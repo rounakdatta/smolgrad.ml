@@ -4,6 +4,12 @@ module Neuron : sig
     (* getter for the data *)
     val data : t -> float
 
+    (* getter for the gradient or weight *)
+    val grad : t -> float
+
+    (* getter for the dependencies of the node *)
+    val dependencies : t -> t list
+
     (* Constructor; constructs a unit neuron of a value and an operator. *)
     val create : ?op:string -> ?deps:t list -> float -> t
 

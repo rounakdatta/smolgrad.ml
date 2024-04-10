@@ -4,5 +4,5 @@ synopsis: "Algorithmic differentiation in OCaml"
 depends: [
   "dune"
   "ppx_jane"
-  "ounit"
+  "alcotest"
 ]

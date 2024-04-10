@@ -8,8 +8,9 @@ module Neuron = struct
     dependencies : t list;
   }
 
-  let data base =
-    base.data
+  let data base = base.data
+  let grad base = base.grad
+  let dependencies base = base.dependencies
 
   let create ?(op="n/a") ?(deps=[]) dt = { 
     data = dt;
@@ -61,7 +62,7 @@ module Neuron = struct
   let backpropagate base =
     (* we topologically sort all the connected nodes from the base node *)
     let rec sort_topologically visited resultant candidate =
-      if not (List.mem candidate visited) then
+      if not (List.memq candidate visited) then
         let visited = candidate :: visited in
         let visited, resultant =
           List.fold_left (fun (visited, resultant) dependent ->
@@ -80,4 +81,3 @@ module Neuron = struct
     (* and propagate the gradient changes *)
     List.iter (fun v -> v.backward ()) (List.rev resultant)
 end
-
