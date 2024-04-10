@@ -61,6 +61,7 @@ module Neuron = struct
 
   let backpropagate base =
     (* we topologically sort all the connected nodes from the base node *)
+    (* the output list is already reversed i.e. right to left *)
     let rec sort_topologically visited resultant candidate =
       if not (List.memq candidate visited) then
         let visited = candidate :: visited in
@@ -75,9 +76,10 @@ module Neuron = struct
     in
     let _, resultant = sort_topologically [] [] base in
 
+    (* this is the neutral gradient the base node start passing down *)
     base.grad <- 1.0;
 
     (* now we go backward from end-mouth of the graph to the connected start nodes *)
     (* and propagate the gradient changes *)
-    List.iter (fun v -> v.backward ()) (List.rev resultant)
+    List.iter (fun v -> v.backward ()) (resultant)
 end
