@@ -1,4 +1,4 @@
-module Neuron = struct
+module Variable = struct
   type t = {
     data : float;
     mutable grad : float;

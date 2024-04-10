@@ -1,16 +1,19 @@
-module Neuron : sig
+(* this is essentially the core variable which is differentiable at heart *)
+(* these form the base data structure of weights and biases of a neuron *)
+module Variable : sig
     type t
 
     (* getter for the data *)
     val data : t -> float
 
-    (* getter for the gradient or weight *)
+    (* getter for the gradient *)
     val grad : t -> float
 
     (* getter for the dependencies of the node *)
     val dependencies : t -> t list
 
-    (* Constructor; constructs a unit neuron of a value and an operator. *)
+    (* Constructor; constructs a unit variable with a value, *)
+    (* and optionally the creation operation and the dependencies. *)
     val create : ?op:string -> ?deps:t list -> float -> t
 
     (* Handles the gradient flows in addition operation. *)
