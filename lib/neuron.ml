@@ -5,19 +5,22 @@ module Neuron = struct
     mutable backward : unit -> unit;
 
     operator : string;
-    dependents : t list;
+    dependencies : t list;
   }
 
-  let create dt op deps = { 
+  let data base =
+    base.data
+
+  let create ?(op="n/a") ?(deps=[]) dt = { 
     data = dt;
     grad = 0.;
     backward = (fun () -> ());
     operator = op;
-    dependents = deps;
+    dependencies = deps;
   }
 
   let add base partner =
-    let resultant = create (base.data +. partner.data) "+" [base; partner] in
+    let resultant = create ~op:"+" ~deps:[base; partner] (base.data +. partner.data) in
 
     resultant.backward <- (fun () ->
       base.grad <- base.grad +. resultant.grad;
@@ -26,7 +29,7 @@ module Neuron = struct
     resultant
 
   let mul base partner =
-    let resultant = create (base.data *. partner.data) "*" [base; partner] in
+    let resultant = create ~op:"*" ~deps:[base; partner] (base.data *. partner.data) in
 
     resultant.backward <- (fun () ->
       base.grad <- base.grad +. partner.data *. resultant.grad;
@@ -35,15 +38,20 @@ module Neuron = struct
     resultant
 
   let exp base exponent =
-    let resultant = create (base.data ** exponent) "**" [base] in
+    let resultant = create ~op:"**" ~deps:[base] (base.data ** exponent) in
 
     resultant.backward <- (fun () ->
       base.grad <- base.grad +. exponent *. (base.data ** (exponent -. 1.)) *. resultant.grad;
     );
     resultant
 
+(* these are all the operator overloadings we need to associate with each of the binary operators *)
+  let ( + ) = add
+  let ( * ) = mul
+  let ( ** ) = exp
+
   let relu base =
-    let resultant = create (max 0. base.data) "relu" [base] in
+    let resultant = create ~op:"relu" ~deps:[base] (max 0. base.data) in
 
     resultant.backward <- (fun () ->
       base.grad <- base.grad +. (if base.data > 0. then resultant.grad else 0.);
@@ -58,7 +66,7 @@ module Neuron = struct
         let visited, resultant =
           List.fold_left (fun (visited, resultant) dependent ->
             sort_topologically visited resultant dependent
-          ) (visited, resultant) candidate.dependents 
+          ) (visited, resultant) candidate.dependencies 
         in
         (visited, candidate :: resultant)
       else
@@ -72,3 +80,4 @@ module Neuron = struct
     (* and propagate the gradient changes *)
     List.iter (fun v -> v.backward ()) (List.rev resultant)
 end
+

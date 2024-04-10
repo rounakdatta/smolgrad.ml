@@ -1,3 +1,4 @@
 (library
-  (name nn)
-  (modules Neuron Network))
+  (name smolgrad)
+  (public_name smolgrad)
+  (modules neuron))
