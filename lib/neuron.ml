@@ -8,13 +8,25 @@ module Neuron = struct
     is_non_linear : bool;
   }
 
+  (* this is just a getter data structure for the parameters *)
+  type out_t = {
+      weights : Variable.Variable.t list;
+      bias : Variable.Variable.t;
+  }
+
+  (* note how we explicitly define the types to avoid confusions and fights with the compiler *)
+  let parameters (neuron: t) : out_t = {
+    weights = neuron.weights;
+    bias = neuron.bias;
+  }
+
   let create number_of_inputs is_non_linear = {
     weights = List.init number_of_inputs (fun _ -> Variable.Variable.create (random_weight_initializer));
     bias = Variable.Variable.create 0.0;
     is_non_linear = is_non_linear;
   }
 
-  let weigh_inputs neuron input_vector =
+  let weigh_inputs (neuron: t) input_vector =
     (* one-to-one multiplication of inputs to their corresponding weights *)
     let weighted_sum = List.fold_left2 (fun accumulator weight_i input_i -> Variable.Variable.(accumulator + weight_i * input_i))
       (Variable.Variable.create 0.0) neuron.weights input_vector in

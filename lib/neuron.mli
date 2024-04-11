@@ -2,6 +2,16 @@
 module Neuron : sig
     type t
 
+    (* we've defined this public type both here in the interface file as well as the implementation file *)
+    (* this is required for the internal attributes of the type to be accessible publicly *)
+    type out_t = {
+        weights : Variable.Variable.t list;
+        bias : Variable.Variable.t;
+    }
+
+    (* getter for the parameters (aka weights and biases) of the neuron *)
+    val parameters : t -> out_t 
+
     (* Constructor; constructs a unit neuron *)
     val create : int -> bool -> t
 
