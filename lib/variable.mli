@@ -1,4 +1,4 @@
-(* this is essentially the core variable which is differentiable at heart *)
+(* Variable is essentially the core value unit which is differentiable at heart *)
 (* these form the base data structure of weights and biases of a neuron *)
 module Variable : sig
     type t

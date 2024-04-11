@@ -46,7 +46,7 @@ module Variable = struct
     );
     resultant
 
-(* these are all the operator overloadings we need to associate with each of the binary operators *)
+  (* these are all the operator overloadings we need to associate with each of the binary operators *)
   let ( + ) = add
   let ( * ) = mul
   let ( ** ) = exp
