@@ -20,8 +20,8 @@ module Neuron = struct
     bias = neuron.bias;
   }
 
-  let create number_of_inputs is_non_linear = {
-    weights = List.init number_of_inputs (fun _ -> Variable.Variable.create (random_weight_initializer));
+  let create number_of_input_dimensions is_non_linear = {
+    weights = List.init number_of_input_dimensions (fun _ -> Variable.Variable.create (random_weight_initializer));
     bias = Variable.Variable.create 0.0;
     is_non_linear = is_non_linear;
   }
