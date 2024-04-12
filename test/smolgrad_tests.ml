@@ -7,4 +7,5 @@ let () =
 
   (* unit tests for Neuron *)
   Neuron_operations.test_neuron_initialization ();
+  Neuron_operations.test_neuron_weights_reacting_to_input ();
 ;;

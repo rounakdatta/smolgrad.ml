@@ -26,7 +26,8 @@ module Neuron = struct
     is_non_linear = is_non_linear;
   }
 
-  let weigh_inputs (neuron: t) input_vector =
+  (* TODO: Check for dimension-mismatch *)
+  let weigh_input (neuron: t) input_vector =
     (* one-to-one multiplication of inputs to their corresponding weights *)
     let weighted_sum = List.fold_left2 (fun accumulator weight_i input_i -> Variable.Variable.(accumulator + weight_i * input_i))
       (Variable.Variable.create 0.0) neuron.weights input_vector in

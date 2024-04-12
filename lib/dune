@@ -1,4 +1,4 @@
 (library
   (name smolgrad)
   (public_name smolgrad)
-  (modules variable neuron))
+  (modules variable neuron layer))

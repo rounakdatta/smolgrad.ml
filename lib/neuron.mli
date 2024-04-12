@@ -16,5 +16,5 @@ module Neuron : sig
     val create : int -> bool -> t
 
     (* Passes the training input and lets the neuron weigh the input values against its weights and biases *)
-    val weigh_inputs : t -> Variable.Variable.t list -> Variable.Variable.t
+    val weigh_input : t -> Variable.Variable.t list -> Variable.Variable.t
 end
