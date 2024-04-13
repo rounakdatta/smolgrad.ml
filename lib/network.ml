@@ -3,6 +3,9 @@ module Network = struct
     layers : Layer.Layer.t list;
   }
 
+  let parameters (network : t) =
+    List.map (fun x -> Layer.Layer.parameters x) network.layers
+
   (* the number of output parameters of a layer is the number of neurons in that layer *)
   (* important to understand that the input layer isn't truly a layer with weights and biases; just an abstraction *)
   let create number_of_input_dimensions number_of_neurons_per_layer =
@@ -11,7 +14,8 @@ module Network = struct
     let rec build_layers stacked_layers sizes =
       match sizes with
       | input :: output :: rest ->
-        let layer = Layer.Layer.create input output true in
+        let has_non_linear_activation_for_layer = (rest <> []) in
+        let layer = Layer.Layer.create input output has_non_linear_activation_for_layer in
 
         (* note how we are stacking the layers in reverse order *)
         build_layers (layer :: stacked_layers) (output :: rest)

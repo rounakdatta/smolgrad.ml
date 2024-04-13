@@ -3,6 +3,9 @@
 module Layer : sig
     type t
 
+    (* getter for the parameters (aka weights and biases) of the layer *)
+    val parameters : t -> Neuron.Neuron.out_t list
+
     (* Constructor; constructs a layer of neurons *)
     val create : int -> int -> bool -> t
 

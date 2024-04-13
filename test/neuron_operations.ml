@@ -1,5 +1,5 @@
-open Smolgrad.Neuron
 open Smolgrad.Variable
+open Smolgrad.Neuron
 
 let test_neuron_initialization () =
   let n = Neuron.create 5 true in
